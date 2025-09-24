@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        registry = "yourdockerhubusername/myapp"      // Replace with your Docker Hub username/repo
+        registry = "ais28/cicd-node-app"      // Replace with your Docker Hub username/repo
         registryCredential = 'dockerhub'              // This must match your Jenkins credential ID
         dockerImage = ''
     }
