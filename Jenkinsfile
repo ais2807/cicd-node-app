@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     // Trivy security scan for Docker image
-                    sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${registry}'
+                    sh 'docker run --rm -v /Users/siatata/.docker/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${registry}'
                 }
             }
         }
