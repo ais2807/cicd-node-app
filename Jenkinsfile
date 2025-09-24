@@ -2,12 +2,20 @@ pipeline {
     agent any
 
     environment {
-        registry = "ais28/cicd-node-app"      // Replace with your Docker Hub username/repo
-        registryCredential = 'dockerhub'              // This must match your Jenkins credential ID
+        registry = "sia28/cicd-node-app"      // Replace with your Docker Hub username/repo
+        registryCredential = 'dockerhub'      // This must match your Jenkins credential ID
         dockerImage = ''
     }
 
     stages {
+        stage('Debug Environment') {
+            steps {
+                // Verify shell path and environment variables
+                sh(script: 'which sh', shell: '/bin/bash')
+                sh(script: 'echo $PATH', shell: '/bin/bash')
+            }
+        }
+
         stage('Cloning Git') {
             steps {
                 // Clone your main branch from GitHub
@@ -28,7 +36,7 @@ pipeline {
             steps {
                 script {
                     // Trivy security scan for Docker image
-                    sh 'docker run --rm -v /Users/siatata/.docker/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${registry}'
+                    sh(script: "docker run --rm -v /Users/siatata/.docker/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${registry}", shell: '/bin/bash')
                 }
             }
         }
@@ -47,7 +55,7 @@ pipeline {
         stage('Clean up') {
             steps {
                 // Remove local Docker image to free up space
-                sh "docker rmi ${registry}"
+                sh(script: "docker rmi ${registry}", shell: '/bin/bash')
             }
         }
     }
