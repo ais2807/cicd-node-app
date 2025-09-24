@@ -11,8 +11,8 @@ pipeline {
         stage('Debug Environment') {
             steps {
                 // Verify shell path and environment variables
-                sh 'which sh'
-                sh 'echo $PATH'
+                sh '/bin/sh -c "which sh"'
+                sh '/bin/sh -c "echo $PATH"'
             }
         }
 
